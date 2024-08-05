@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Hotel.Infrastructure.Data.Building>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+@if (TempData["ErrorMessageHotelExists"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessageHotelExists"]
+    </div>
+}
+<div class="d-flex justify-content-between">
+    <div>
+        @foreach (var hotel in Model.OrderBy(hotel => hotel.Id))
+        {
+            <div class="mb-2">
+                <a asp-controller="Room" asp-action="RoomsAndBookingsInHotel" asp-route-hotelId="@hotel.Id" class="text-links">@hotel.Name</a>
+                <a id="deleteBtn-@hotel.Id" class="btn btn-danger delete" data-id="@hotel.Id" data-delete-url="/Hotel/Delete?hotelId=@hotel.Id"><i class="bi bi-trash"></i></a>
+            </div>
+        }
+    </div>
+    <p></p>
+    <div>
+        <form id="create">
+            <a asp-controller="Hotel" asp-action="CreateHotel" class="text-links">New Hotel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/personal-scripts/DeleteModalDialog.js"></script>
+}

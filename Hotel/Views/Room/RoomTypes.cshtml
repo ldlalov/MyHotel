@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Hotel.Infrastructure.Data.RoomType>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<form id="customers">
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    First name
+                </th>
+                <th>
+                    Last name
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td>
+                            <input asp-for="@room.Type" class="text-links" readonly />
+                        </td>
+                        <td>
+                            <button asp-controller="RoomType" asp-action="EditType" asp-route-Id="@room.Id" class="text-links">Edit</button>
+                        </td>
+                        <td>
+                            <a id="deleteBtn" class="btn btn-danger delete" data-id="@room.Id" data-delete-url="/RoomType/Delete/@room.Id"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</form>
+<br />
+<a asp-controller="RoomType" asp-action="CreateType" class="text-links">New Customer</a>
+
+@section Scripts {
+    <script src="~/lib/personal-scripts/DeleteModalDialog.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+}

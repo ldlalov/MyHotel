@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Hotel.Core.Models.RoomViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link rel="stylesheet" href="~/lib/my-calendar/calendar.css" asp-append-version="true" />
+<form id="create">
+    <a asp-controller="Room" asp-action="Create" class="btn btn-primary">New Room</a>
+</form>
+<form id="create">
+    <a asp-controller="Booking" asp-action="BookingsInHotel" class="btn btn-primary">Bookings</a>
+</form>
+<p>---------------------------------------------------------------------------------------</p>
+<form id="rooms">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var room in Model)
+        {
+            <a asp-controller="Booking" asp-action="CreateBooking" asp-route-roomId="@room.Id" class="btn btn-primary">@room.RoomId</a>
+            <button asp-controller="Room" asp-action="EditRoom" asp-route-Id="@room.Id" class="btn btn-primary">Edit</button>
+            <p></p>
+        }
+    }
+</form>
+<br />
+<form>
+    <button id="return" class="btn btn-primary" asp-controller="Hotel" asp-action="Index">Back to Hotels</button>
+</form>
+<br />
+<form>
+    <button id="return" class="btn btn-primary" asp-controller="Hotel" asp-action="Delete">Delete</button>
+</form>
+<br />
+<label id="currentMonth" hidden></label>
+<div id="monthNameContainer">
+    <label id="monthName">Current Month</label>
+</div>
+<br />
+<table border="1 solid black" id="rooms" style="width:100%">
+    <thead>
+        <tr id="days">
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<br />
+<button id="previewsMonth" onclick="PreviewsMonth()">
+    Previews Month
+</button>
+<button id="nextMonth" onclick="NextMonth()">
+    Next Month
+</button>
+<br />
+<div>
+    @{
+        //here I need the bookings List
+    }
+</div>
+<br />
+<script src="~/lib/my-calendar/calendar.js"></script>
+<script src="~/lib/my-calendar/Bookings.js"></script>

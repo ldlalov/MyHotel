@@ -1,0 +1,63 @@
+﻿@model Hotel.Core.Models.BookingViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form method="post">
+    @if (TempData["ErrorMessageBookingExists"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessageBookingExists"]
+        </div>
+    }
+
+    <div class="form-group">
+        <label asp-for="RoomId" hidden>RoomId</label>
+        <input asp-for="RoomId" class="form-control" hidden />
+        <span asp-validation-for="RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HotelId" hidden>HotelId</label>
+        <input asp-for="HotelId" class="form-control" hidden />
+        <span asp-validation-for="HotelId" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="DateFrom">DateFrom</label>
+        <input asp-for="DateFrom" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="DateFrom" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="DateTo">DateTo</label>
+        <input asp-for="DateTo" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")"/>
+        <span asp-validation-for="DateTo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerId">Customer</label>
+        <div class="combobox-container">
+            <select asp-for="CustomerId" class="combobox-select">
+                <option value="">Customer</option>
+                @if (Model.customers != null && Model.customers.Any())
+                {
+                    @foreach (var customer in Model.customers)
+                    {
+                        <option value="@customer.Id">@customer.FirstName  @customer.LastName</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+        </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <div>
+
+</form>
+<br />
+<form>
+    <button id="return" class="btn btn-primary" asp-controller="Room" asp-action="RoomsAndBookingsInHotel">Back to Rooms</button>
+</form>
+<br />
+
+<form id="create">
+    <a asp-controller="Customer" asp-action="CreateCustomer" class="btn btn-primary">Customers</a>
+</form>

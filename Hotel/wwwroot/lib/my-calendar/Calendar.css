@@ -1,0 +1,73 @@
+﻿body{
+    border-radius: 10px;
+}
+table {
+    border: none;
+    border-radius: .25px;
+    overflow: hidden;
+}
+#rooms {
+    width: 100%;
+    border-collapse: collapse; /* Collapse the borders between cells */
+    table-layout: fixed; /* Set the table layout to fixed */
+}
+    #rooms div {
+        width:max-content;
+        height:max-content;
+        border:solid;
+        background-color: #d4bf96;
+    }
+ /* CSS for the table cells */
+    /*#rooms td, #rooms th*/
+     #rooms th {
+        color: white;
+        background-color: #d4bf96;
+        border: 1px; /* Add borders around cells */
+        border-radius: 10px;
+        padding: 5px; /* Add padding for better readability */
+        width: 20px; /* Set a fixed width for each cell */
+        text-align: center; /* Center align text within cells */
+    }
+#monthNameContainer #monthName {
+    font-size:large;
+    background-color: #d4bf96;
+}
+tbody tr td:first-child {
+    background-color: #d4bf96;
+    border-radius: 10px;
+}
+tbody td {
+    border-radius: 10px;
+}
+tr {
+    background-color: blanchedalmond;
+    text-align: center;
+}
+button {
+    border: 0px;
+    color: white;
+    background-color: #d4bf96;
+    border-radius: .25rem;
+}
+td:hover {
+    background-color: darkblue;
+}
+#nextMonth {
+    float: right;
+}
+#return {
+    background-color: #96D4D4;
+    border-radius: .25rem;
+}
+.btn-primary {
+    color: white;
+    border:none;    
+    border-color:none;
+    background-color: #96D4D4;
+    border-radius: .25rem;
+}
+#monthNameContainer {
+    color: white;
+    background-color: #96D4D4;
+    text-align: center;
+}

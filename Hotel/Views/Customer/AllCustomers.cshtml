@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Hotel.Infrastructure.Data.Customer>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<form id="customers">
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    First name
+                </th>
+                <th>
+                    Last name
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var customer in Model)
+        {
+                    <tr>
+                        <td>
+                            <input asp-for="@customer.FirstName" class="text-links" readonly />
+                        </td>
+                        <td>
+                            <input asp-for="@customer.LastName" class="text-links" readonly />
+                        </td>
+                        <td>
+                            <button asp-controller="Customer" asp-action="EditCustomer" asp-route-Id="@customer.Id" class="text-links">Edit</button>
+                        </td>
+                        <td>
+                            <a id="deleteBtn" class="btn btn-danger delete" data-id="@customer.Id" data-delete-url="/Customer/Delete/@customer.Id"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+        }
+    }
+        </tbody>
+    </table>
+</form> 
+<br />
+<a asp-controller="Customer" asp-action="CreateCustomer" class="text-links">New Customer</a>
+
+@section Scripts {
+    <script src="~/lib/personal-scripts/DeleteModalDialog.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+}

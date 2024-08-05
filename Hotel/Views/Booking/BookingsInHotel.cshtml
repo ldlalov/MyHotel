@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Hotel.Infrastructure.Data.Booking>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form id="bookings">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var booking in Model)
+        {
+            <div>
+                <label>Hotel</label>
+            <input asp-for="@booking.RoomId" readonly/>
+            <a asp-controller="Booking" asp-action="EditBooking" asp-route-Id="@booking.Id">Edit</a>
+            </div>
+            <br />
+            <div>
+                <label>Room</label>
+            <input asp-for="@booking.Room.RoomId" readonly />
+            <a asp-controller="Booking" asp-action="EditBooking"></a>
+            </div>
+            <br />
+            <div>
+                <label>Start Date</label>
+            <input asp-for="@booking.DateFrom" readonly />
+            <a asp-controller="Booking" asp-action="EditBooking"></a>
+            </div>
+            <br />
+            <div>
+                <label>End Date</label>
+            <input asp-for="@booking.DateTo" readonly />
+            <a asp-controller="Booking" asp-action="EditBooking"></a>
+            </div>
+            <br />
+            <div style="accent-color">
+                ============================================
+            </div>
+
+        }
+    }
+</form>
+<br />
+<form>
+    <button id="return" class="btn btn-primary" asp-controller="Room" asp-action="RoomsInHotel">Back to Rooms</button>
+</form>
+<br />

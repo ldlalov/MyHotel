@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main Content -->
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+                <div id="menu" class="text-links">
+                    <a asp-area="Identity" asp-controller="Hotel" asp-action="Index" class="text-links">HOTELS</a>
+                    <span class="space"></span><!-- Add space here -->
+                    <a asp-area="Identity" asp-controller="Room" asp-action="RoomTypes" class="text-links">Room Types</a>
+                    <span class="space"></span><!-- Add space here -->
+                    <a asp-area="Identity" asp-controller="Customer" asp-action="AllCustomers" class="text-links">Customers</a>
+                </div>
+                <!-- Left Navigation Bar -->
+@*                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link 3</a>
+                        </li>
+                    </ul>
+                </nav>
+ *@
+
+            </main>
+        </div>
+    </div>
+}
+else
+{
+    <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+    </ul>
+
+}

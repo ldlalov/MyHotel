@@ -1,0 +1,18 @@
+﻿@model Hotel.Core.Models.CustomerViewModel;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form method="post">
+    <div class="form-group">
+        <input asp-for="Id" class="text-links" readonly />
+    </div>
+    <br />
+    <div class="form-group">
+        <input asp-for="FirstName" class="text-links" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input asp-for="LastName" class="text-links" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-secondary">Update</button>
+</form>

@@ -1,0 +1,113 @@
+﻿@model Hotel.Core.Models.RoomBookingViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link rel="stylesheet" href="~/lib/my-calendar/calendar.css" asp-append-version="true" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<form id="rooms">
+    @if (Model.Rooms != null && Model.Rooms.Any())
+    {
+        <div>
+        @foreach (var room in Model.Rooms.OrderBy(r => r.RoomId))
+        {
+            <div id="roomNumbers">
+                <a asp-controller="Booking" asp-action="CreateBooking" asp-route-roomId="@room.Id" class="btn btn-primary"><i class="bi bi-door-open fa-xs"></i>@room.RoomId</a>
+                <button asp-controller="Room" asp-action="EditRoom" asp-route-Id="@room.Id" class="btn btn-primary">Edit</button>
+            </div>
+        }
+        </div>
+        <p></p>
+    }
+    <a asp-controller="Room" asp-action="Create" class="text-links">New Room</a>
+</form>
+<br />
+<br />
+<label id="currentMonth" hidden></label>
+<div id="monthNameContainer">
+    <label id="monthName">Current Month</label>
+</div>
+<br />
+<table border="1 solid black" id="rooms" style="width:100%">
+    <thead>
+        <tr id="days">
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<br />
+<button id="previewsMonth" onclick="PreviewsMonth()">
+    Previews Month
+</button>
+<button id="nextMonth" onclick="NextMonth()">
+    Next Month
+</button>
+<br />
+<br />
+<form id="bookings">
+    @if (Model.Bookings != null && Model.Bookings.Any())
+    {
+                    <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Room</th>
+                            <th>Check-in-date</th>
+                            <th>Check-out-date</th>
+                            <th>Days</th>
+                            <th>Sum</th>
+                        </tr>
+                    </thead>
+
+        @foreach (var booking in Model.Bookings.OrderBy(b => b.Room.RoomId))
+        {
+                    var days = (booking.DateTo - booking.DateFrom).Days;
+                    var sum = days * Math.Round(booking.Room.Price, 2);
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a asp-controller="Booking" asp-action="EditBooking" asp-route-Id="@booking.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <input id="RoomId" asp-for="@booking.Room.RoomId" readonly>
+                            </td>
+                            <td>
+                                <input id="dateFrom" asp-for="@booking.DateFrom" type="date" readonly>
+                            </td>
+                            <td>
+                                <input id="dateTo" asp-for="@booking.DateTo" type="date" readonly>
+                            </td>
+                            <td>
+                                <input id="days" value="@days" type="number" readonly>
+                            </td>
+                            <td>
+                                <input id="sum" value="@sum" type="number" readonly>
+                            </td>
+                            <td>
+                                <a asp-controller="Booking" asp-action="Delete" asp-route-Id="@booking.Id" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+                </table>
+            </div>
+        @foreach (var booking in Model.Bookings.OrderBy(b => b.Room.RoomId))
+        {
+
+            <div id="booking" hidden>
+                <a asp-controller="Booking" asp-action="EditBooking" asp-route-Id="@booking.Id" class="btn btn-primary">@booking.Room.RoomId</a>
+                <input id="RoomId" asp-for="@booking.Room.RoomId" readonly>
+            <input id="dateFrom" asp-for="@booking.DateFrom" type="date" readonly>
+            <input id="dateTo" asp-for="@booking.DateTo" type="date" readonly>
+            <input id="customer" asp-for="@booking.CustomerId" readonly>
+            <a asp-controller="Booking" asp-action="Delete" asp-route-Id="@booking.Id" class="btn btn-primary">Delete</a>
+            <p></p>
+            </div>
+        }
+    }
+</form>
+<br />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/lib/my-calendar/calendar.js"></script>

@@ -1,1 +1,1 @@
-Basic hotel app. You can create hotels, rooms and bookings.
+Basic hotel MVC Project. You can create hotels, rooms and bookings.
